@@ -1,5 +1,7 @@
-export type State = Record<string, unknown>;
+// Wire protocol — direct port of upstream slidev-sync-server (MIT, Smile-SA).
+// Keeping field names identical so this is drop-in compatible with slidev-addon-sync.
 
+export type State = Record<string, unknown>;
 export type States = Record<string, State>;
 
 export enum DataType {
@@ -24,7 +26,7 @@ export interface WsData extends Data {
 }
 
 export interface ConnectData extends Data {
-  full?: boolean
+  full?: boolean;
   states?: States;
 }
 
@@ -34,7 +36,7 @@ export interface WsConnectData extends ConnectData {
 }
 
 export interface ReplaceData extends Data {
-  states: States
+  states: States;
 }
 
 export interface WsReplaceData extends ReplaceData {
@@ -43,8 +45,8 @@ export interface WsReplaceData extends ReplaceData {
 }
 
 export interface PatchData extends Data {
-  full?: boolean
-  states: States
+  full?: boolean;
+  states: States;
 }
 
 export interface WsPatchData extends PatchData {
@@ -52,9 +54,25 @@ export interface WsPatchData extends PatchData {
   uid: string;
 }
 
-export interface ResetData extends Data {}
+export type ResetData = Data;
 
 export interface WsResetData extends ResetData {
   type: DataType.RESET;
   uid: string;
+}
+
+export function isConnectData(data: WsData): data is WsConnectData {
+  return data.type === DataType.CONNECT;
+}
+
+export function isPatchData(data: WsData): data is WsPatchData {
+  return data.type === DataType.PATCH;
+}
+
+export function isReplaceData(data: WsData): data is WsReplaceData {
+  return data.type === DataType.REPLACE;
+}
+
+export function isResetData(data: WsData): data is WsResetData {
+  return data.type === DataType.RESET;
 }

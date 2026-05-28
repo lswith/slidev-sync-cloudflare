@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "slidev-sync-cloudflare",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-05-01",
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    // Comma-separated origin allowlist (e.g. "https://talks.example.com,https://slides.example.com").
+    // Use "*" to allow any origin (matches upstream slidev-sync-server's default).
+    // The Origin header is the only browser-side gate against drive-by use of this server,
+    // so for a public *.workers.dev deployment, restrict this to your slide-hosting origin(s).
+    "ALLOWED_ORIGINS": "*"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SYNC_ROOM",
+        "class_name": "SyncRoom"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["SyncRoom"]
+    }
+  ]
+}

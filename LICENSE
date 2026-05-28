@@ -1,6 +1,10 @@
 MIT License
 
-Copyright (c) Smile.
+Copyright (c) 2026 Luke Swithenbank
+
+Portions of this code are derived from slidev-sync-server
+(https://github.com/Smile-SA/slidev-sync-server),
+Copyright (c) Smile, also under the MIT License.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
